@@ -7,44 +7,39 @@ int main(){
     char ZnakPerepolneniya;
     int check = 1;
     long int k;
-    long long int longmax = 2147483647;
-    long long int sumres = 0;
+    double longmax = 2147483647;
+    long int sumres = 0;
     scanf("%ld", &k);
-    long long int sum = 0, n = 1;
-    long long int a[k];
-    for(int i = 0; i<= k-1; i++){
-        a[i] = pow(2 * (i+1), n);
-        sum += a[i];
-    }
+    long int n = 1;
     
-    while(sum <= LONG_MAX){
+    while(1){
         n++;
-        for(int i = 0; i <= k-1; i++){
-            sum -= a[i];
-            a[i] = pow((2 * (i+1)), n);
-            if (a[i] > LONG_MAX){
+        long int sum = 0;
+        for(int i = 1; i <= k; i++){
+            long int a = pow((2 * (i)), n);
+            sum += a;
+            //if (2 * (i) > pow(longmax, 1/n)){ // (2 * i) ** n > LONG_MAX
+            if (a < 0){
                 ZnakPerepolneniya = '*';
                 check = 0;
                 break;
             }
-            //printf("%ld\n", a[i]);
-            sum += a[i];
+            else if (sum <= 0){
+                ZnakPerepolneniya = '+';
+                check = 0;
+                break;
+            }
             //printf("%ld\n", sum);
             }
         if (check == 0){
             break;
         }
-        if (sum  > LONG_MAX){
-            ZnakPerepolneniya = '+';
-            break;
-        }
-        
     }
-    for(int i = 0; i<= k-1; i++){
-        sumres += pow(2*i, n);
+    for(int i = 1; i<= k; i++){
+        sumres += pow(2*i, n-1);
     }
     printf("%d\n", sumres);
-    printf("%d\n", n);
+    printf("%d\n", n-1);
     printf("%c\n",ZnakPerepolneniya);
     return 0;
 }
